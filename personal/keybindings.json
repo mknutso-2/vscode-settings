@@ -8,7 +8,13 @@
             ]
         },
         "command": "runCommands",
-        "key": "ctrl+l"
+        "key": "ctrl+l",
+        "when": "chatgpt.sidebarView.visible || chatgpt.sidebarSecondaryView.visible"
+    },
+    {
+        "command": "claude-vscode.focus",
+        "key": "ctrl+l",
+        "when": "claude-vscode.sideBarActive || activeWebviewPanelId == 'claudeVSCodePanel'"
     },
     {
         "command": "clangd.switchheadersource",
