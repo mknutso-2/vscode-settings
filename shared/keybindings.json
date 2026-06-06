@@ -1,0 +1,156 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "command": "workbench.action.compareEditor.nextChange",
+        "key": "ctrl+down",
+        "when": "textCompareEditorVisible"
+    },
+    {
+        "command": "workbench.action.compareEditor.previousChange",
+        "key": "ctrl+up",
+        "when": "textCompareEditorVisible"
+    },
+    {
+        "command": "workbench.action.editor.nextChange",
+        "key": "ctrl+down",
+        "when": "editorTextFocus && !textCompareEditorVisible"
+    },
+    {
+        "command": "workbench.action.editor.previousChange",
+        "key": "ctrl+up",
+        "when": "editorTextFocus && !textCompareEditorVisible"
+    },
+    {
+        "command": "multiDiffEditor.goToNextChange",
+        "key": "ctrl+down",
+        "when": "activeEditor == 'multiDiffEditor'"
+    },
+    {
+        "command": "multiDiffEditor.goToPreviousChange",
+        "key": "ctrl+up",
+        "when": "activeEditor == 'multiDiffEditor'"
+    },
+    {
+        "command": "git.revertSelectedRanges",
+        "key": "ctrl+shift+backspace",
+        "when": "editorTextFocus && !textCompareEditorVisible"
+    },
+    {
+        "command": "git.revertSelectedRanges",
+        "key": "ctrl+shift+backspace",
+        "when": "textCompareEditorVisible"
+    },
+    {
+        "command": "C_Cpp.SwitchHeaderSource",
+        "key": "ctrl+f11",
+        "when": "editorTextFocus && editorLangId =~ /^(c|(cuda-)?cpp)$/ && !(config.C_Cpp.intelliSenseEngine =~ /^[dD]isabled$/)"
+    },
+    // The VS Code keyboard shortcuts pdf online suggests that this is a built-in recommended shortcut. However, this recently stopped
+    // working for me.
+    // In any case, adding this to your personal keybindings seems to resolve the issue.
+    {
+        "command": "workbench.view.scm",
+        "key": "ctrl+shift+g"
+    },
+    {
+        "command": "-C_Cpp.SwitchHeaderSource",
+        "key": "alt+o",
+        "when": "editorTextFocus && editorLangId =~ /^(c|(cuda-)?cpp)$/ && !(config.C_Cpp.intelliSenseEngine =~ /^[dD]isabled$/)"
+    },
+    {
+        "command": "workbench.action.files.saveAll",
+        "key": "ctrl+shift+s"
+    },
+    {
+        "command": "toggleVim",
+        "key": "ctrl+f12"
+    },
+    {
+        "command": "search.action.focusNextSearchResult",
+        "key": "f8",
+        "when": "hasSearchResult || inSearchEditor"
+    },
+    {
+        "command": "-search.action.focusNextSearchResult",
+        "key": "f4",
+        "when": "hasSearchResult || inSearchEditor"
+    },
+    {
+        "command": "search.action.focusPreviousSearchResult",
+        "key": "shift+f8",
+        "when": "hasSearchResult || inSearchEditor"
+    },
+    {
+        "command": "-search.action.focusPreviousSearchResult",
+        "key": "shift+f4",
+        "when": "hasSearchResult || inSearchEditor"
+    },
+    {
+        "command": "workbench.action.tasks.runTask",
+        "key": "ctrl+alt+t"
+    },
+    // Sends an interrupt signal (SIGINT) to the currently running process in the terminal
+    // When Ctrl+PauseBreak is pressed, this simulates pressing Ctrl+C in the terminal,
+    // which tells the operating system to interrupt and typically terminate the running program.
+    {
+        "args": {
+            "text": "\u0003"
+        },
+        "command": "workbench.action.terminal.sendSequence",
+        "key": "ctrl+pausebreak",
+        "when": "terminalViewShowing"
+    },
+    {
+        "command": "git.openChange",
+        "key": "f3"
+    },
+    {
+        "command": "git.viewChanges",
+        "key": "shift+f3"
+    },
+    {
+        "command": "workbench.action.chat.attachSelection",
+        "key": "ctrl+l",
+        "when": "chatIsEnabled"
+    },
+    {
+        "command": "editor.action.blockComment",
+        "key": "ctrl+shift+/",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "command": "-editor.action.blockComment",
+        "key": "shift+alt+a",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "command": "chatEditor.action.navigateNext",
+        "key": "alt+j",
+        "when": "chatEdits.hasEditorModifications && chatIsEnabled && editorFocus || chatEdits.hasEditorModifications && chatIsEnabled && notebookCellListFocused"
+    },
+    {
+        "command": "-chatEditor.action.navigateNext",
+        "key": "alt+f5",
+        "when": "chatEdits.hasEditorModifications && chatIsEnabled && editorFocus || chatEdits.hasEditorModifications && chatIsEnabled && notebookCellListFocused"
+    },
+    {
+        "command": "chatEditor.action.navigatePrevious",
+        "key": "alt+u",
+        "when": "chatEdits.hasEditorModifications && chatIsEnabled && editorFocus || chatEdits.hasEditorModifications && chatIsEnabled && notebookCellListFocused"
+    },
+    {
+        "command": "-chatEditor.action.navigatePrevious",
+        "key": "shift+alt+f5",
+        "when": "chatEdits.hasEditorModifications && chatIsEnabled && editorFocus || chatEdits.hasEditorModifications && chatIsEnabled && notebookCellListFocused"
+    },
+    {
+        "command": "-extension.vim_ctrl+t",
+        "key": "ctrl+t",
+        "when": "editorTextFocus && vim.active && vim.use<C-t> && !inDebugRepl"
+    },
+    {
+        "command": "markdown.reopenAsSource",
+        "key": "escape",
+        "when": "activeCustomEditorId == 'vscode.markdown.preview.editor' && !activeCustomEditorTextDiff"
+    },
+]

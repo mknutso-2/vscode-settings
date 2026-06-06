@@ -1,0 +1,20 @@
+set relativenumber
+set number
+set ignorecase
+set gdefault
+set clipboard=unnamed
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap c "_c
+
+" Unmap Ctrl-J to do nothing in Vim. Ctrl-J toggles terminal panel in vscode.
+unmap <C-J>
+
+" In visual mode (x), when you press p, it deletes the selection into the black hole register ("_d),
+" then pastes (P) before the cursor, preserving your yank buffer.
+xnoremap p "_dP
+
+" In normal and visual mode, when you press c, it deletes into the black hole register,
+" preserving your yank buffer when changing text.
+nnoremap c "_c
+xnoremap c "_c

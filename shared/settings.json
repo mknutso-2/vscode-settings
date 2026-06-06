@@ -1,0 +1,72 @@
+{
+    "[cpp]": {
+        "editor.rulers": [
+            {
+                "color": "#DAA520",
+                "column": 120
+            },
+            {
+                "color": "#ff0000",
+                "column": 160
+            }
+        ]
+    },
+    "chat.agent.enabled": true,
+    "chat.agent.maxRequests": 500,
+    "chat.checkpoints.showFileChanges": true,
+    "chat.mcp.gallery.enabled": true,
+    "chat.todoListTool.enabled": true,
+    "debug.onTaskErrors": "abort",
+    "diffEditor.hideUnchangedRegions.enabled": false,
+    "diffEditor.ignoreTrimWhitespace": true,
+    "diffEditor.renderSideBySide": true,
+    "editor.aiStats.enabled": true,
+    "editor.lineNumbers": "relative",
+    "editor.renderWhitespace": "all",
+    "git.blame.editorDecoration.enabled": true,
+    "git.blame.statusBarItem.enabled": true,
+    "git.confirmSync": false,
+    "git.enableSmartCommit": true,
+    "git.openDiffOnClick": false,
+    "git.openRepositoryInParentFolders": "never",
+    "git.pullTags": false,
+    "git.replaceTagsWhenPull": true,
+    "github.copilot.chat.agent.thinkingTool": true,
+    "github.copilot.chat.agentDebugLog.fileLogging.enabled": true,
+    "github.copilot.chat.otel.captureContent": true,
+    "github.copilot.chat.otel.enabled": true,
+    "github.copilot.chat.tools.memory.enabled": false,
+    "github.copilot.enable": {
+        "*": true,
+        "markdown": true,
+        "plaintext": true,
+        "scminput": false
+    },
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "python.analysis.typeCheckingMode": "strict",
+    "redhat.telemetry.enabled": false,
+    "scm.defaultViewMode": "tree",
+    "security.workspace.trust.banner": "never",
+    "task.allowAutomaticTasks": "on",
+    "vim.handleKeys": {
+        "<C-a>": false, // Select all
+        "<C-b>": false, // Toggle Visual Studio Code sidebar
+        "<C-c>": false, // Copy
+        "<C-d>": true, // Vim Down
+        "<C-f>": false, // Find
+        "<C-h>": false, // Replace
+        "<C-i>": false, // GH Copilot in-line request.
+        "<C-j>": false, // Toggle terminal
+        "<C-n>": false, // New file
+        "<C-o>": false, // Open
+        "<C-p>": false, // Paste
+        "<C-s>": false, // Save
+        "<C-w>": false, // Close window
+        "<C-x>": false, // Cut
+        "<C-z>": false // Undo
+    },
+    "vim.smartRelativeLine": true,
+    "vim.useSystemClipboard": true,
+    "vim.vimrc.enable": true,
+    "workbench.editor.enablePreview": false
+}
