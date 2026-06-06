@@ -1,0 +1,18 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "args": {
+            "commands": [
+                "chatgpt.addToThread",
+                "chatgpt.sidebarView.focus"
+            ]
+        },
+        "command": "runCommands",
+        "key": "ctrl+l"
+    },
+    {
+        "command": "clangd.switchheadersource",
+        "key": "f4",
+        "when": "editorTextFocus && resourceLangId == 'c' || editorTextFocus && resourceLangId == 'cpp' || editorTextFocus && resourceLangId == 'cuda-cpp' || editorTextFocus && resourceLangId == 'objective-c' || editorTextFocus && resourceLangId == 'objective-cpp'"
+    }
+]
