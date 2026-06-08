@@ -13,15 +13,44 @@ backed up unless -NoBackup is supplied.
 #>
 [CmdletBinding(SupportsShouldProcess = $true)]
 param(
-    [string]$SharedDir = (Join-Path $PSScriptRoot 'shared'),
-    [string]$PersonalDir = (Join-Path $PSScriptRoot 'personal'),
-    [string]$TargetUserDir = (Join-Path ([Environment]::GetFolderPath('ApplicationData')) 'Code\User'),
-    [string]$VimRcPath = (Join-Path $HOME '.vimrc'),
+    [string]$SharedDir,
+    [string]$PersonalDir,
+    [string]$TargetUserDir,
+    [string]$VimRcPath,
     [switch]$NoBackup
 )
 
 Set-StrictMode -Version 3.0
 $ErrorActionPreference = 'Stop'
+
+$ScriptDirectory = if (-not [string]::IsNullOrWhiteSpace($PSScriptRoot)) {
+    $PSScriptRoot
+}
+elseif (-not [string]::IsNullOrWhiteSpace($PSCommandPath)) {
+    Split-Path -Parent $PSCommandPath
+}
+elseif ($MyInvocation.MyCommand.Path) {
+    Split-Path -Parent $MyInvocation.MyCommand.Path
+}
+else {
+    (Get-Location).Path
+}
+
+if ([string]::IsNullOrWhiteSpace($SharedDir)) {
+    $SharedDir = Join-Path $ScriptDirectory 'shared'
+}
+
+if ([string]::IsNullOrWhiteSpace($PersonalDir)) {
+    $PersonalDir = Join-Path $ScriptDirectory 'personal'
+}
+
+if ([string]::IsNullOrWhiteSpace($TargetUserDir)) {
+    $TargetUserDir = Join-Path ([Environment]::GetFolderPath('ApplicationData')) 'Code\User'
+}
+
+if ([string]::IsNullOrWhiteSpace($VimRcPath)) {
+    $VimRcPath = Join-Path $HOME '.vimrc'
+}
 
 $Utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 
@@ -182,7 +211,7 @@ function Remove-TrailingComma {
 
     $lines = [System.Collections.Generic.List[string]]::new()
     foreach ($line in ((ConvertTo-Lf $Text) -split "`n", -1)) {
-        $lines.Add($line)
+        [void]$lines.Add($line)
     }
 
     for ($i = $lines.Count - 1; $i -ge 0; $i--) {
@@ -205,7 +234,7 @@ function Add-TrailingComma {
 
     $lines = [System.Collections.Generic.List[string]]::new()
     foreach ($line in ((ConvertTo-Lf $Text) -split "`n", -1)) {
-        $lines.Add($line)
+        [void]$lines.Add($line)
     }
 
     for ($i = $lines.Count - 1; $i -ge 0; $i--) {
@@ -223,20 +252,17 @@ function Add-TrailingComma {
     return (($lines -join "`n").Trim("`n"))
 }
 
-function Add-BodyLines {
+function Get-BodyLines {
     param(
-        [Parameter(Mandatory = $true)]
-        [System.Collections.Generic.List[string]]$Lines,
-        [string]$Body
+        [AllowEmptyString()]
+        [string]$Body = ''
     )
 
     if ([string]::IsNullOrWhiteSpace($Body)) {
-        return
+        return @()
     }
 
-    foreach ($line in ((ConvertTo-Lf $Body) -split "`n", -1)) {
-        $Lines.Add($line)
-    }
+    return ((ConvertTo-Lf $Body) -split "`n", -1)
 }
 
 function New-MergedJsonc {
@@ -260,14 +286,18 @@ function New-MergedJsonc {
     }
 
     $lines = [System.Collections.Generic.List[string]]::new()
-    $lines.Add($openChar)
-    $lines.Add('    // SHARED CONTENT START')
-    Add-BodyLines -Lines $lines -Body $sharedBody
-    $lines.Add('    // SHARED CONTENT END')
-    $lines.Add('    // PERSONAL CONTENT START')
-    Add-BodyLines -Lines $lines -Body $personalBody
-    $lines.Add('    // PERSONAL CONTENT END')
-    $lines.Add($closeChar)
+    [void]$lines.Add($openChar)
+    [void]$lines.Add('    // SHARED CONTENT START')
+    foreach ($line in (Get-BodyLines -Body $sharedBody)) {
+        [void]$lines.Add($line)
+    }
+    [void]$lines.Add('    // SHARED CONTENT END')
+    [void]$lines.Add('    // PERSONAL CONTENT START')
+    foreach ($line in (Get-BodyLines -Body $personalBody)) {
+        [void]$lines.Add($line)
+    }
+    [void]$lines.Add('    // PERSONAL CONTENT END')
+    [void]$lines.Add($closeChar)
 
     return ConvertTo-Crlf (($lines -join "`n") + "`n")
 }
@@ -284,12 +314,16 @@ function New-MergedVimRc {
     $personalBody = (ConvertTo-Lf (Read-OptionalText $PersonalPath)).Trim("`n")
 
     $lines = [System.Collections.Generic.List[string]]::new()
-    $lines.Add('" SHARED CONTENT START')
-    Add-BodyLines -Lines $lines -Body $sharedBody
-    $lines.Add('" SHARED CONTENT END')
-    $lines.Add('" PERSONAL CONTENT START')
-    Add-BodyLines -Lines $lines -Body $personalBody
-    $lines.Add('" PERSONAL CONTENT END')
+    [void]$lines.Add('" SHARED CONTENT START')
+    foreach ($line in (Get-BodyLines -Body $sharedBody)) {
+        [void]$lines.Add($line)
+    }
+    [void]$lines.Add('" SHARED CONTENT END')
+    [void]$lines.Add('" PERSONAL CONTENT START')
+    foreach ($line in (Get-BodyLines -Body $personalBody)) {
+        [void]$lines.Add($line)
+    }
+    [void]$lines.Add('" PERSONAL CONTENT END')
 
     return ConvertTo-Crlf (($lines -join "`n") + "`n")
 }
